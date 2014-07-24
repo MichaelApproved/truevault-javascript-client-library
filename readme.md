@@ -1,7 +1,7 @@
 A TrueVault JavaScript Client Library
 ==========
 
-An unofficial JavaScript implementation of the [TrueVault REST API](https://www.truevault.com/rest-api.html).
+An unofficial JavaScript implementation of the [TrueVault REST API](https://www.truevault.com/documentation/rest-api.html).
 
 [TrueVault](https://www.truevault.com/) is a secure "backend-as-a-service" content storage solution for HIPAA compliance.  
 
@@ -38,6 +38,11 @@ function displayAllSchemas(data) {
     //Loop through the array of data.schemas to display the information
 }
 ```
+
+## Helpful Resources
+
+You might find the [Medicast node.js client library](https://github.com/medicast/truevaultjs) helpful.
+
 
 ## Plain-English Disclaimer
 
