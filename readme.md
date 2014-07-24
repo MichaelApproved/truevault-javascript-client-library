@@ -15,6 +15,8 @@ tvExplorer allows you to view all vaults, schemas and documents. You can also cr
 
 The class is extendable and designed to return information through callbacks and events.
 
+TIP: I built a great web based client tool called [truevault-javascript-explorer](https://github.com/MichaelApproved/truevault-javascript-explorer) that helps you manage TrueVault.com objects. It uses this library and is a great resource for seeing what's possible in addition to helping you manage your objects.
+
 ## Usage
 -----
 
