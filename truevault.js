@@ -66,7 +66,7 @@ var tvExplorer = {
 			//for more specific action.
 			if (typeof (callback) === "undefined" || typeof (callback) === "object") {
 				callback = function() {
-				}
+				};
 			}
 
 			//default method to GET
@@ -103,7 +103,7 @@ var tvExplorer = {
 						console.log('tvExplorer.apiRequest() ajax done. Details end.');
 
 						//Is this a JSON response or is this a file?
-						if (jqXHR.getResponseHeader('content-type') == 'application/json') {
+						if (jqXHR.getResponseHeader('content-type') === 'application/json') {
 							if (data.result === 'success') {
 								callback(data);
 							} else {
@@ -191,12 +191,8 @@ var tvExplorer = {
 	documents: {
 		/**
 		 * Will return all documentIds in a vault.
-		 * A method to search for all docuemnts isn't documented with TrueVault API
-		 * so I hacked a method together by searching for all documents with a
-		 * fake (hopefully non-existant) field that I don't expect any documents to have.
-		 * More details are in the function code.
 		 * 
-		 * Documents are come paged with 100 per page. To get another page, pass the
+		 * Documents come paged with 100 per page. To get another page, pass the
 		 * next page number into the request.
 		 * 
 		 * @param {type} vaultId The ID of the vault to return all data from.
@@ -207,19 +203,35 @@ var tvExplorer = {
 		findAll: function(vaultId, page, callback) {
 			var path = 'vaults/' + vaultId + '/documents';
 
-			//Include search options to get additional pages of information
-			var searchOption = {
-				per_page: 10,
-				page: page,
-			};
+			//send the request
+			tvExplorer.apiRequest.send(path + '?page=' + page, callback, "GET");
+
+		},
+
+		/**
+		 * Return a list of documents filtered by searchOption
+		 * 
+		 * Documents come paged with 100 per page. To get another page, pass the
+		 * next page number into the request.
+		 * 
+		 * @param {type} vaultId The ID of the vault to return all data from.
+		 * @param {object} filterOption The filter options to include in the request. 
+		 * Options include: schema_id, filter, case_sensitive, page, per_page, filter_type, full_document, and sort.
+		 * @param {type} callback The function to execute on a successful request.
+		 * @returns {undefined}
+		 */
+		filter: function(vaultId, filterOption, callback) {
+			var path = 'vaults/' + vaultId + '/';
+
 
 			//convert the serachOption array into a string and then base64 encode it.
-			searchOptionBase64 = btoa(JSON.stringify(searchOption));
+			searchOptionBase64 = btoa(JSON.stringify(filterOption));
 
 			//send the request
 			tvExplorer.apiRequest.send(path + '?search_option=' + searchOptionBase64, callback, "GET");
 
 		},
+		
 		/**
 		 * Returns the contents of a document.
 		 * TODO - Extended this to accept an array for documentd(s) for multiple documents in one request.
@@ -249,6 +261,14 @@ var tvExplorer = {
 				tvExplorer.apiRequest.send(path, callback, "PUT", {"document": documentContentBase64, "schema_id": schemaId});
 			}
 		},
+		/**
+		 * 
+		 * @param {type} vaultId
+		 * @param {type} schemaId
+		 * @param {type} documentContent
+		 * @param {type} callback
+		 * @returns {undefined}
+		 */
 		create: function(vaultId, schemaId, documentContent, callback) {
 			var path = 'vaults/' + vaultId + '/documents';
 
