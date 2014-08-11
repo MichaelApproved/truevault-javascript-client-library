@@ -171,6 +171,11 @@ var tvExplorer = {
 
 			tvExplorer.apiRequest.send(path, callback, "GET");
 		},
+		delete: function(vaultId, schemaId, callback) {
+			var path = 'vaults/' + vaultId + '/schemas/' + schemaId;
+
+			tvExplorer.apiRequest.send(path, callback, "DELETE");
+		},
 		update: function(vaultId, schemaId, schemaContent, callback) {
 			var path = 'vaults/' + vaultId + '/schemas/' + schemaId;
 
