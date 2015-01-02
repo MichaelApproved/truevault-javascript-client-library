@@ -64,13 +64,13 @@ var tvExplorer = {
 			//An action could be handled globally with the 
 			//tvExplorer.apiRequestDone function of or via this callback
 			//for more specific action.
-			if (typeof (callback) === "undefined" || typeof (callback) === "object") {
+			if (typeof (callback) !== "function") {
 				callback = function() {
 				};
 			}
 
 			//default method to GET
-			method = (typeof (method) === "undefined" || typeof (percentage) === "object") ? "GET" : method;
+			method = (typeof (method) !== "string") ? "GET" : method;
 
 
 			if (typeof (params) !== "undefined" && typeof (params) !== "object") {
